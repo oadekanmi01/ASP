@@ -1,0 +1,66 @@
+
+Install Java
+sudo yum install -y java-1.8.0-openjdk-devel
+
+Install wget.
+sudo yum install -y wget
+
+Download the repo.
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo
+
+Import the required key.
+sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key
+
+Install Jenkins.
+sudo yum install -y jenkins
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+fs-c334c121.efs.us-east-1.amazonaws.com
+
+10.245.119.108
+
+
+echo "fs-c334c121.efs.us-east-1.amazonaws.com:/    /app/lib/jenkins/   nfs   defaults    0  0" >> /etc/fstab
+echo "10.245.119.108:/  /app/lib/jenkins/   nfs   defaults    0  0" >> /etc/fstab
+
+
+
+echo "/dev/mapper/vg01-appvol /app xfs defaults,noatime 0 2" >> /etc/fstab
+
+
+
+ffsdcs-mysqldb-prod-1.cbi5ckxxoj7b.us-east-1.rds.amazonaws.com:3306
+
+
+ffsdcs-mysqldb-prod-1.cbi5ckxxoj7b.us-east-1.rds.amazonaws.com:3306
+
+
+mysqldump: Error 2020: Got packet bigger than 'max_allowed_packet' bytes when dumping table `data_fil_upld` at row: 709
+
+
+mysqldump --single-transaction --max-allowed-packet=560m --routines clfsdb > PROD_clfsdb_07302019.sql
+
+
+$ sudo mount -t nfs -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-c334c121.efs.us-east-1.amazonaws.com:/     
+
+mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-c334c121.efs.us-east-1.amazonaws.com:/ /app/lib/jenkins
+echo "10.245.119.108:/  /app/lib/jenkins/   nfs   defaults    0  0" >> /etc/fstab
+
+
+
+
+167df595d01d11105b8700602ce0cfa0d54a826cllkk
+
+
+c21bede0ae6a64b13b5b04828b42809e837ef65d
+
+http://10.245.119.109:9000
+
+
+https://blog.knoldus.com/setting-up-master-slave-machines-using-jenkins/
+
+
+https://medium.com/@amitvermaa93/jenkins-sonarqube-integration-129f5c49c4ca

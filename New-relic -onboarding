@@ -1,0 +1,23 @@
+
+custom_attributes:
+       hostName: Activemq-Data-Prod
+       appName: Activemq
+       appEnv: prod
+       appZone: DZ
+
+
+
+
+
+
+echo "license_key: 271bc1c4b9e74b394537144727a821cbe3252fe3" | sudo tee -a /etc/newrelic-infra.yml
+
+
+
+systemctl enable newrelic-infra.service
+systemctl start newrelic-infra.service
+systemctl status newrelic-infra.service
+systemctl stop newrelic-infra.service
+
+cp -p /etc/newrelic-infra.yml /etc/newrelic-infra.yml-bckup
+cat /etc/newrelic-infra.yml

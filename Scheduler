@@ -1,0 +1,35 @@
+{
+  "description": {
+    "S": "Dev office hours"
+  },
+  "name": {
+    "S": "dev-office-hours"
+  },
+  "periods": {
+    "SS": [
+      "office-hours"
+    ]
+  },
+  "timezone": {
+    "S": "US/Eastern"
+  },
+  "type": {
+    "S": "schedule"
+  }
+}
+
+
+
+test-mysql-office-hours
+schedule
+
+
+test-office-hours    
+
+
+
+impl-mysql-office-hours
+schedule
+
+
+impl-office-hours

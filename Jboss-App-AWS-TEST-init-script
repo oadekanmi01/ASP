@@ -1,0 +1,24 @@
+[root@ip-10-234-194-107 configuration]# cat /etc/jboss-as/jboss-as.conf
+# General configuration for the init.d scripts,
+# not necessarily for JBoss AS itself.
+
+# The username who should own the process.
+#
+ JBOSS_USER=jboss
+
+# The amount of time to wait for startup
+#
+# STARTUP_WAIT=30
+
+# The amount of time to wait for shutdown
+#
+# SHUTDOWN_WAIT=30
+
+# Location to keep the console log
+#
+ JBOSS_CONSOLE_LOG=/usr/share/jboss-as/standalone/log/console.log
+
+#This is the location of JBOSS_HOME
+
+ JBOSS_HOME=/app/jboss-eap-6.4
+[root@ip-10-234-194-107 configuration]#

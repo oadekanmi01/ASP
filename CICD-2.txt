@@ -1,0 +1,76 @@
+Application Deployment with Jenkins & Continous Deployment with Tomcat:
+GitHub Repo: https://github.com/oadekanmi01/hello-world-war
+Requirement: Jenkinsfile & Pipeline Script
+Pipeline style: 4 Stage Pipeline (GitCheckout , Build, Test, Deploy war file)
+
+N:B: Pls fork the above GitHub Repo with your GitHub account
+
+On Jenkins Server:
+1. Install Apache Maven
+https://tecadmin.net/install-apache-maven-on-centos/
+
+2. Also on Jenkins server, install git -yum install git -y
+
+3. Login into Jenkins Dashboard
+a. Click on Manage Jenkins -> Global Tool Configuration -> Scroll to "Maven Installations" -> Click "Add Maven" -> Give a name (Maven 3) - Version(Select Maven version 5.4.0 or 3.6.0) -> Click Save
+
+a. Click New Item
+b. Enter name of your application: e.g Iphone7
+c. Select Pipeline Project & Click OK
+d. Description of Project - e.g : This is Iphone7 App development
+e. Click on Pipeline  at the top & Select Pipeline Script  at the end of the page & paste the below script into the Pipeline script space
+
+
+node{
+   stage('SCM Checkout'){
+     git 'https://github.com/oadekanmi01/hello-world-war'
+   }
+
+   stage('Build'){
+      // Get Maven Home Path
+      def mvnHome = tool name: 'Maven 3', type: 'maven'
+      sh "${mvnHome}/bin/mvn package"
+      echo "FFSDCS Test Passed"
+   }
+   
+   stage('Test'){
+      // Get Maven Home Path
+      def mvnHome = tool name: 'Maven 3', type: 'maven'
+      sh "${mvnHome}/bin/mvn package"
+   }
+      stage('Deploy war file'){
+      def mvnHome = tool name: 'Maven 3', type: 'maven'
+      sh "scp /var/lib/jenkins/workspace/Iphone7/target/hello-world-war-1.0.0.war root@tomcat-private-ip-addr:/root/tomcat/tomcat7/webapps"
+   
+   }
+}
+
+
+
+
+Click save -> Click Build Now
+
+N:B Pls observe stages and you can change the stage name as you want. Example: Stage('SCM Checkout'), You can call yours SCM-Whatever-you-want, Same thing applies to the rest
+
+
+CHANGING THE CONTENTS OF THE WAR FILE:
+After you Fork the GitHub Repo with your GitAccount
+Click on the Hello-World-War - It should look like this (yomesky2000/hello-world-war)
+Click on src/main/webapp
+Click on index.jsp
+Click Edit
+Modify this line  <h1> Verizon Application  Deployment 2. Author by Engineer Simon SMN!</h1> ....You can call yours "This is my test deployment or whatever you want"
+Scroll down to the bottom and add a commit message
+Click on Commit changes
+
+Navigate to your Tomcat  server - Click Manager App - You should see Hello-World-War 
+Click on the Hello-World-War
+You should the Deployment.
+
+
+Note: for author build by Jenkins, go to job or project and click on configure... look for poll scm and set a crontab time/hour format (example ***** to build every 1 minute)
+
+
+To set up auto build with any changes in the gitHub repository, follow this steps:
+
+https://docs.bitnami.com/oci/how-to/create-ci-pipeline-jenkins-oracle/

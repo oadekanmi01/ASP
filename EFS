@@ -1,0 +1,44 @@
+fs-c334c121.efs.us-east-1.amazonaws.com
+
+10.245.119.108
+
+
+10.245.119.108:/
+
+echo "/dev/mapper/vg01-appvol /app xfs defaults,noatime 0 2" >> /etc/fstab
+
+
+
+ip-10-245-119-107.ec2.internal
+
+fs-c334c121.efs.us-east-1.amazonaws.com
+
+
+echo "fs-c334c121.efs.us-east-1.amazonaws.com:/    /app/lib/jenkins/   nfs   defaults    0  0" >> /etc/fstab
+echo "10.245.119.108:/  /app/lib/jenkins/   nfs   defaults    0  0" >> /etc/fstab
+
+
+
+echo "/dev/mapper/vg01-appvol /app xfs defaults,noatime 0 2" >> /etc/fstab
+
+
+
+ffsdcs-mysqldb-prod-1.cbi5ckxxoj7b.us-east-1.rds.amazonaws.com:3306
+
+
+ffsdcs-mysqldb-prod-1.cbi5ckxxoj7b.us-east-1.rds.amazonaws.com:3306
+
+
+
+
+mysqldump: Error 2020: Got packet bigger than 'max_allowed_packet' bytes when dumping table `data_fil_upld` at row: 709
+
+
+
+mysqldump --single-transaction --max-allowed-packet-560m --routines clfsdb 
+
+
+$ sudo mount -t nfs -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-c334c121.efs.us-east-1.amazonaws.com:/     
+
+mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-c334c121.efs.us-east-1.amazonaws.com:/ /app/lib/jenkins
+echo "10.245.119.108:/  /app/lib/jenkins/   nfs   defaults    0  0" >> /etc/fstab

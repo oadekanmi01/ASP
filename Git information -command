@@ -1,0 +1,45 @@
+https://github.com/oadekanmi01/hello-world-war.git
+
+or create a new repository on the command line
+echo "# FFSDCS" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/oadekanmi01/FFSDCS.git
+git push -u origin master
+
+
+
+Hello World! (WAR-style)
+===============
+
+This is the simplest possible Java webapp for testing servlet container deployments.  It should work on any container and requires no other dependencies or configuration.
+
+git clone (to clone the remote repository)
+git init (to initialized) 
+git add "." (to push everything in that directory)
+git commit -m "first commit"
+git push origin master or git push origin siva (to specify which branch to push to)
+
+
+git branch "new branch" (to create new branch)
+git checkout  "new branch"
+git branch -d "name of branch to delete"
+
+git clone --local /mnt/baserepo
+
+git config --global user.name "Ola Ade"
+git config --global user.email "ola@dcca.com"
+git config --list
+
+
+
+which git
+
+git  --veriosn
+
+https://help.github.com/en/articles/about-teams
+https://help.github.com/en/articles/managing-team-access-to-an-organization-repository
+https://help.github.com/en/articles/adding-organization-members-to-a-team
+
+

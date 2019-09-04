@@ -1,0 +1,60 @@
+sudo su-
+mkdir warfiles
+mkdir software-version
+sudo su -
+useradd oadekanmi
+passwd oadekanmi
+usermod -aG wheel oadekanmi
+su - oadekanmi
+vi .bash_profile
+mv software-version/* /home/oadekanmi/software-version/
+cd warfiles/
+mv ffsdcsApp-FFSDCS_PROD_REL_9.5.1.war /home/oadekanmi/
+cd /home/oadekanmi/
+chown oadekanmi. ffsdcsApp-FFSDCS_PROD_REL_9.5.1.war
+chown -R oadekanmi software-version/
+cd software-version/
+cp activemq-rar-5.9.0.rar jboss-eap-6.4.0.zip /app/
+cd /app/
+cd ../standalone/configuration/
+mv standalone.xml standalone.xml-original
+vi standalone.xml
+cd /app/jboss-eap-6.4/standalone/deployments/
+cd /usr/share/jboss-as/
+cd standalone/
+chown -R jboss. standalone/
+cd standalone/
+systemctl status jboss
+cd /home/oadekanmi/
+./deployment.sh
+ cd /app/jboss-eap-6.4/standalone/deployments/
+
+
+
+
+
+
+yum install unzip -y;yum install wget -y;yum install java-1.8.0-openjdk -y
+java -version
+groupadd -g 500 jbossgrp
+useradd -s  /bin/bash -g jbossgrp jboss
+usermod -u 500  jboss
+id jboss
+cd /app/
+unzip jboss-eap-6.4.0.zip
+mv activemq-rar-5.9.0.rar jboss-eap-6.4/standalone/deployments/
+rm -rf jboss-eap-6.4.0.zip
+chown -Rf jboss:jbossgrp jboss-eap-6.4
+ln -s /app/jboss-eap-6.4 /usr/share/jboss-as
+cd jboss-eap-6.4/
+cp bin/init.d/jboss-as-standalone.sh /etc/init.d/jboss
+chmod 755 /etc/init.d/jboss
+ mkdir /etc/jboss-as
+ cp /app/jboss-eap-6.4/bin/init.d/jboss-as.conf /etc/jboss-as/
+ vi /etc/jboss-as/jboss-as.conf
+ cd /etc/init.d/
+chkconfig --add jboss
+ chkconfig jboss on
+ chkconfig --level 3 jboss on
+ cd /app/jboss-eap-6.4/bin/
+ ./add-user.sh

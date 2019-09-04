@@ -1,0 +1,24 @@
+#! /bin/bash
+
+echo -e "***Creating Physical Volume***\n"
+pvcreate /dev/nvme1n1
+
+echo -e "***Creating Volume Group***\n"
+vgcreate vg01 /dev/nvme1n1
+
+echo -e "***Creating Logical Volume&Allocation***\n"
+lvcreate -l 100%FREE -n appvol vg01
+
+echo -e "***Creating File System***\n"
+mkfs.xfs /dev/vg01/appvol
+
+echo -e "***Making a new directory***\n"
+mkdir -p /app
+
+echo -e "***Updating fstab file***\n"
+echo "/dev/mapper/vg01-appvol /app xfs defaults,noatime 0 2" >> /etc/fstab
+
+echo -e "***Mounting Added EBS***\n"
+mount -a
+
+

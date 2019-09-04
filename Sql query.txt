@@ -1,0 +1,102 @@
+mysql clfsdb -e 'select labent.LAB_TIN_ID as LAB_TIN_ID,
+hcpcsCd.HCPCS_CD as HCPCS_CD,
+certifiedLabData.PRICE_AMT as PRICE_AMT,
+certifiedLabData.VOL_TXT as VOL_TXT,
+npirfrnc.NPI_NUM as NPI_NUM
+from clfsdb.certified_lab_data certifiedLabData
+left join clfsdb.lab_ent labent on labent.LAB_ID =certifiedLabData.lab_id
+left join clfsdb.hcpcs_rfrnc  hcpcsCd on hcpcsCd.HCPCS_ID =certifiedLabData.HCPCS_ID
+left join clfsdb.npi_rfrnc npirfrnc on npirfrnc.NPI_RFRNC_ID = certifiedLabData.NPI_RFRNC_ID'|sed 's/\t/,/g' > ~/12212018clear-query1.csv
+
+
+
+mysql -u aspdbuser -p --batch -e "SELECT distinct org.org_name as 'Manufacturer s Name',dr.DRUG_IDNTFR_CD 'NDC/ALT ID;"| sed 's/\t/","/g;s/^/"/;s/$/"/;s/\n//g' > /home/adekano/output0605-1.csv
+
+
+https://aws.amazon.com/premiumsupport/knowledge-center/
+https://aws.amazon.com/premiumsupport/knowledge-center/definer-error-mysqldump/
+https://www.cyberciti.biz/tips/how-do-i-enable-remote-access-to-mysql-database-server.html
+https://www.tecmint.com/linux-curl-command-examples/
+
+sed -i -e 's/DEFINER=`aspdbuser`@`localhost`/DEFINER=`aspdbuser`@`%`/g' PROD_aspdb_06282019.sql
+sed -i -e 's/DEFINER=`dbroot`@`localhost`/DEFINER=`aspdbuser`@`%`/g' dump.sql
+
+
+mysql -u root -p aspdb < getMissingDrugListForCertifier.sql
+ 
+mysqldump -u aspdbuser -p -v aspdb > /home/oadekanmi/Mysql-Dump/HPTEST_clfsdb_05022019.sql
+ 
+mysqldump -u aspdbuser -v aspdb > /home/sdaniel/MySQL-Dumps/DCCADEV__aspdb_04302019.sql
+ 
+mysqldump -u aspdbuser -p -v aspdb > /home/oadekanmi/Mysql-Dump/HPTEST_aspdb_004302019.sql
+
+su - sdaniel -s /bin/bash
+
+mysql -u root -p -vvv < MySQL_5.7_Script_v1_5.sql > outrput.txt
+
+mysql -u aspdbuser -p --batch -e "MySQL_4.1_5.0_5.1_Test_Script_v1_4.sql"| sed 's/\t/","/g;s/^/"/;s/$/"/;s/\n//g' > /home/oadekanmi/Testsql/output22.CSV
+
+ps -ef|grep -i mysql
+kill -9 16840
+ps -ef|grep -i mysql
+kill -9 17212
+
+
+https://crontab.guru/
+
+DEFINER=`aspdbuser`@`localhost`
+DEFINER=`dbroot`@`localhost` 
+
+
+
+select * from aspdb.usr where eidm='siva0523';
+
+SELECT * FROM clfsdb.sys_user where SYS_USER_EIDM_ID='siva0523'
+
+SELECT User,Host FROM mysql.user;
+
+GRANT SELECT,UPDATE ON aspdb.certified_druginfo TO 'sgottipati'@'%';
+
+SHOW GRANTS FOR 'aspdbuser'@'%';
+
+DROP USER 'user'@'%'
+
+SHOW GRANTS FOR 'user'@'%';
+
+SET PASSWORD FOR 'user-name-here'@'%' = PASSWORD('new-password');
+
+FLUSH PRIVILEGES;
+
+
+SET PASSWORD FOR 'aspdbuser'@'%' = PASSWORD('Hu#PJ!MJG');
+
+CREATE USER 'new_master_user'@'%' IDENTIFIED BY 'password';
+
+CREATE USER 'aspdbuser'@'%' IDENTIFIED BY 'Password@!'
+
+CREATE USER 'aspdbuser'@'%' IDENTIFIED BY 'Ha$rU$&#0G'
+
+devrdsadmin
+
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, RELOAD, PROCESS, REFERENCES, INDEX, ALTER, SHOW DATABASES, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, REPLICATION SLAVE, REPLICATION CLIENT, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, CREATE USER, EVENT, TRIGGER ON *.* TO 'aspdbuser'@'%' WITH GRANT OPTION;
+
+
+
+DEFINER=`devrdsadmin`@`%
+
+
+sed -i -e 's/DEFINER=`devrdsadmin`@`%`/DEFINER=`aspdbuser`@`%`/g' dump.sql
+
+https://aws.amazon.com/premiumsupport/knowledge-center/duplicate-master-user-mysql/
+
+
+mysql -h ffsdcs-mysqldb-dev-1.cbi5ckxxoj7b.us-east-1.rds.amazonaws.com -P 3306 -u aspdbuser -p aspdb <
+
+mysqldump 
+
+mysqldump --single-transaction --max-allowed-packet=560m --routines clfsdb > PROD_clfsdb_08032019.sql
+mysqldump --single-transaction --max-allowed-packet=560m --routines aspdb > PROD_aspdb_08032019.sql
+
+ffsdcs-mysqldb-test.cbi5ckxxoj7b.us-east-1.rds.amazonaws.com
+ffsdcs-mysqldb-test.cbi5ckxxoj7b.us-east-1.rds.amazonaws.com
+ffsdcs-mysqldb-test.cbi5ckxxoj7b.us-east-1.rds.amazonaws.com

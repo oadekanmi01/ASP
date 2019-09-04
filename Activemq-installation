@@ -1,0 +1,73 @@
+[root@ip-10-234-194-116 ~]# history
+    1  16/06/19 22:40:10 yum update -y
+    2  16/06/19 22:44:47 clear
+    3  16/06/19 22:46:52 lsblk
+    4  16/06/19 22:47:17 pvcreat /dev/nvme1n1
+    5  16/06/19 22:47:25 pvcreate /dev/nvme1n1
+    6  16/06/19 22:47:29 pvs
+    7  16/06/19 22:48:00 vgcreate vg01 /dev/nvme1n1
+    8  16/06/19 22:48:12 lvcreate -l 100%FREE -n appvol vg01
+    9  16/06/19 22:48:28 mkfs.xfs /dev/vg01/appvol
+   10  16/06/19 22:48:39 mkdir -p /app
+   11  16/06/19 22:48:52 echo "/dev/mapper/vg01-appvol /app xfs defaults,noatime 0 2" >> /etc/fstab
+   12  16/06/19 22:49:04 mount -a
+   13  16/06/19 22:49:08 df -h
+   14  16/06/19 22:49:14 reboot
+   15  16/06/19 22:40:02 sudo su -
+   16  16/06/19 22:53:23 exit
+   17  16/06/19 22:52:08 clear
+   18  16/06/19 22:52:09 df -h
+   19  16/06/19 22:52:17 cd /home
+   20  16/06/19 22:52:18 ll
+   21  16/06/19 22:52:27 useradd oadekanmi
+   22  16/06/19 22:52:36 passwd oadekanmi
+   23  16/06/19 22:53:07 usermod -aG wheel oadekanmi
+   24  16/06/19 22:53:12 su - oadekanmi
+   25  16/06/19 22:53:48 clear
+   26  16/06/19 22:53:51 cd /app/
+   27  16/06/19 22:56:47 cd
+   28  16/06/19 22:57:26 yum install wget -y;yum install unzip -y;yum install java-1.8.0-openjdk -y
+   29  16/06/19 22:57:51 useradd -u 500 activemq
+   30  16/06/19 22:58:05 groupmod -g 500 activemq
+   31  16/06/19 22:58:24 java -version
+   32  16/06/19 22:58:36 echo $JAVA_HOME
+   33  16/06/19 22:58:54 echo "JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")" | sudo tee -a /etc/profile
+   34  16/06/19 22:59:09 source /etc/profile
+   35  16/06/19 22:59:19 id activemq
+   36  16/06/19 22:59:22 clear
+   37  16/06/19 22:59:25 cd /app/
+   38  16/06/19 22:59:44 wget https://archive.apache.org/dist/activemq/5.11.1/apache-activemq-5.11.1-bin.tar.gz
+   39  16/06/19 23:00:01 ll
+   40  16/06/19 23:00:16 cp -p apache-activemq-5.11.1-bin.tar.gz /home/oadekanmi/software-version/
+   41  16/06/19 23:00:17 ll
+   42  16/06/19 23:00:23 tar -xzvf  apache-activemq-5.11.1-bin.tar.gz
+   43  16/06/19 23:00:27 clear
+   44  16/06/19 23:00:28 ll
+   45  16/06/19 23:00:34 rm -rf apache-activemq-5.11.1-bin.tar.gz
+   46  16/06/19 23:00:36 ll
+   47  16/06/19 23:00:54 mv apache-activemq-5.11.1 activemq-5.11.1
+   48  16/06/19 23:00:55 ll
+   49  16/06/19 23:01:07 chown -R activemq. activemq-5.11.1/
+   50  16/06/19 23:01:20 cd  activemq-5.11.1/bin/
+   51  16/06/19 23:01:25 ./activemq console
+   52  16/06/19 23:06:09 ./activemq start
+   53  16/06/19 23:06:27 cd
+   54  16/06/19 23:06:41 vi /etc/systemd/system/activemq.service
+   55  16/06/19 23:07:27 c
+   56  16/06/19 23:07:36 chkconfig activemq on
+   57  16/06/19 23:07:44 clear
+   58  16/06/19 23:07:50 cd /app/activemq-5.11.1/conf/
+   59  16/06/19 23:07:57 vi jetty-realm.properties
+   60  16/06/19 23:08:30 mv activemq.xml activemq.xml-original
+   61  16/06/19 23:08:35 vi activemq.xml
+   62  16/06/19 23:09:17 cd
+   63  16/06/19 23:09:28 systemctl start activemq
+   64  16/06/19 23:13:05 reboot
+   65  16/06/19 23:14:13 clear
+   66  16/06/19 23:14:23 systemctl status activemq
+   67  16/06/19 23:18:08 exit
+   68  16/06/19 23:14:11 sudo su -
+   69  16/06/19 23:18:11 top
+   70  17/06/19 01:15:20 exit
+   71  19/06/19 17:46:36 clear
+   72  19/06/19 17:46:40 history

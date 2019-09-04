@@ -1,0 +1,154 @@
+https://opensource.io/it/installing-jboss-7-1-1-final-on-centos-6-x/
+http://www.davidghedini.com/pg/entry/install_jboss_7_on_centos
+
+
+CRONJOB SCHEDULING
+
+https://crontab.guru/
+
+* minute
+* hour
+* day (month)
+* month
+* day (week)
+
+* * * * *
+* 12 6 * *
+
+days of the week:
+1-monday
+2-tuesday
+3-wednessday
+4-thursday
+5-friday
+
+59 23 * * sun
+0/5 * * * *
+
+ps -eo pcpu,pid,user,args | sort -k1 -r -n | head -10
+
+firewall-cmd --zone=public --list-all
+firewall-cmd --remove-service=http
+===================================================================================================================================================================================
+
+pam_tally --reset --user <USERNAME>
+pam_tally2 --reset --user <USERNAME>
+sed -n '/Jan 24 22:18:41/,/Jan 24 22:18:45/p' /var/log/mail.log
+
+sed -e "/start pattern/,/end pattern/p" file
+sed -e "/start pattern/,/end pattern/p" file > tmpfile
+
+netstat -ntlp
+
+Jan 24 22:18:41
+
+
+sed -n '/Jan 24 22:18:41/,/Jan 24 22:18:45/p' maillog > tmp.text
+
+
+sed -n '/13:56:43/,/19:03:17/p' maillog > tmp.text
+
+
+telnet ustlvcmsp0179 8010
+telnet ustlvcmsp0179 22
+telnet 10.7.64.13 2
+
+https://access.redhat.com/documentation/en-us/red_hat_jboss_web_server/1.0/html/http_connectors_load_balancing_guide/apache_http_install
+https://access.redhat.com/documentation/en-us/red_hat_jboss_core_services/2.4.23/html-single/apache_http_server_connectors_and_load_balancing_guide/index
+https://docs.jboss.org/jbossas/docs/Clustering_Guide/4/html/clustering-http-modjk.html
+https://docs.jboss.org/jbossclustering/cluster_guide/5.1/html/clustering-http.html#d0e3015
+https://developer.jboss.org/wiki/UsingModjk12WithJBossAndIIS
+
+
+
+http://10.28.0.13/aspApp
+http://10.28.192.13/aspApp
+ 
+http://10.28.0.13:8080/aspApp
+http://10.28.192.13:8080/aspApp
+ 
+http://10.28.0.13:8010/aspApp
+http://10.28.192.13:8010/aspApp
+
+http://10.28.0.13:8009/aspApp
+http://10.28.192.13:8009/aspApp
+==========================================================================================================
+iptables-save > /etc/sysconfig/iptables
+To load the file you don't need to restart the machine, you can use iptables-restore
+
+iptables-restore < /etc/sysconfig/iptables
+
+ 10.28.192.13:48680          10.0.19.5:443 
+
+ip a|grep inet|grep -v inet6
+netstat -an|grep 8010|grep LISTEN
+==============================================================================================================================================
+su - username -s /bin/bash/
+
+/bin/activemq start
+/bin/activemq stop
+
+=======================================================================================================================================================
+
+mysql -u aspdbuser -h aspdb.dcca.com -p
+
+=================================================================================================================================================================================
+lvresize -L +1G " past the file path" ... then enter
+
+After then, run the command resize2fs and past the file path again
+
+lvextend -L 5G "path the file path".. then enter
+Then run the command extend2fs " the file path again"
+==========================================================================================================================================================================
+aspweb.dcca.com
+
+
+server:152
+
+
+ su - daniels -s /bin/bash
+ ./perf-collect-start.sh
+ ps -ef|grep -i mem
+ 
+  ps -ef|grep -i sar
+  
+   ./perf-collect-stop.sh
+   ps -ef|grep -i sar
+    ps -ef|grep -i mem
+	ll
+	 cd output/
+	 ls -ltr
+	 
+	 
+	 ps -eo pcpu,pid,user,args | sort -k1 -r -n | head -10
+
+vmstat 1 100
+====================================================================================================================================================================================
+
+find / -xdev -type f -size +100M
+
+du -mh /home/*
+du -ah /home/*
+du -sh /home/*
+du -sk /home/*
+
+https://www.tecmint.com/check-linux-disk-usage-of-files-and-directories/
+
+============================================================================================================================================================================================================
+yum whatprovides */mkpasswd
+https://www.mkpasswd.net/index.php
+
+ /opt/mysql/script/db_bkup.sh.
+=============================================================================================================================================
+
+#!/bin/bash 
+
+#delete everything in this directory except file1,file2, and file3
+
+cd /home/to/desired/directory
+shopt -s extglob
+rm -rf !("file1"|"file2"|"file3") 
+
+================================================================================================================================================
+https://devopscube.com/setup-and-configure-sonarqube-on-linux/
+https://www.sonarqube.org/downloads/

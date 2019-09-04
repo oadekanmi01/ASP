@@ -1,0 +1,43 @@
+yum update -y
+yum clean all
+lsblk
+pvcreat /dev/nvme1n1
+pvcreate /dev/nvme1n1
+vgcreate vg01 /dev/nvme1n1
+lvcreate -l 100%FREE -n appvol vg01
+mkfs.xfs /dev/vg01/appvol
+ mkdir -p /app
+ echo "/dev/mapper/vg01-appvol /app xfs defaults,noatime 0 2" >> /etc/fstab
+ mount -a
+ df -h
+ reboot
+
+ 
+cd /app/
+yum install wget -y;yum install unzip -y;yum install java-1.8.0-openjdk -y
+java -version
+echo $JAVA_HOME
+echo "JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")" | sudo tee -
+source /etc/profile
+useradd -u 500 activemq
+groupmod -g 500 activemq
+id activemq
+cd /app/
+wget https://archive.apache.org/dist/activemq/5.11.1/apache-activemq-5.11.1-
+cp -p apache-activemq-5.11.1-bin.tar.gz /home/oadekanmi/software-version/
+tar -xzvf  apache-activemq-5.11.1-bin.tar.gz
+rm -rf apache-activemq-5.11.1-bin.tar.gz
+mv apache-activemq-5.11.1 activemq-5.11.1
+chown -R activemq. activemq-5.11.1/
+cd  activemq-5.11.1/bin/
+./activemq console
+./activemq start
+vi /etc/systemd/system/activemq.service
+chkconfig activemq on
+cd /app/activemq-5.11.1/conf/
+vi jetty-realm.properties
+mv activemq.xml activemq.xml-original
+vi activemq.xml
+systemctl start activemq
+reboot
+systemctl status activemq

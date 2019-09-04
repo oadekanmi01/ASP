@@ -1,0 +1,12 @@
+yum update -y
+yum clean all
+lsblk
+pvcreate /dev/nvme1n1
+vgcreate vg01 /dev/nvme1n1
+lvcreate -l 100%FREE -n appvol vg01
+mkfs.xfs /dev/vg01/appvol
+mkdir -p /app
+echo "/dev/mapper/vg01-appvol /app xfs defaults,noatime 0 2" >> /etc/fstab
+mount -a
+df -h 
+reboot

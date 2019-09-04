@@ -1,0 +1,136 @@
+CICD DOCUMENTATION STEP BY STEP
+Tools - GitHub , Jenkins & Apache Tomcat
+Goal - Leverage GitHub As Repositories Manager
+       Jenkins as CICD Tools
+       Tomcat as Application deployment server
+GitHub Repo: https://github.com/yomesky2000/hello-world-war.git
+
+1. This documentation is based on assumption that you already have a Jenkins and Tomcat Server Running. If not try Setup the 2 server, Make sure they are in the same VPC & security group and can communicate with each other. For me, I opened All Traffic in my SG for test purpose.
+
+INTEGRATE JENKINS & TOMCAT SERVER FOR CONTINOUS DEPLOYMENT
+
+On Jenkins Server:
+a. Login into Jenkins Server:
+b. cp -p /etc/passwd /etc/passwd.bak
+c. vi /etc/passwd & scroll to the bottom untill you see jenkins user and change its shell to /bin/bash
+IT SHOULD LOOK LIKE THIS: jenkins:x:997:994:Jenkins Automation Server:/var/lib/jenkins:/bin/bash
+d. save & quit
+e. su - jenkins - (This is )
+f. Generate an SSH key for jenkins: ssh-keygen, press Enter 3 times
+g. cd .ssh and cat id_rsa.pub
+
+
+On Tomcat Server:
+a. Login into Tomcat Server
+b. cp -p /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
+c. vi /etc/ssh/sshd_config
+d. Search/scroll down to : PermitRootLogin and Password authentication uncomment the line
+IT SHOULD LOOK LIKE THIS:
+PermitRootLogin yes
+ENABLE PASSWORD AUTHENTICATION IN THE SAME SSH CONFIG FILE:
+PasswordAuthentication yes - change No to Yes
+e. Once the 2 line is completed in sshd - save & quit
+f. restart sshd; systemctl restart sshd
+
+Change root passwd on tomcat server;
+command:
+passwd root
+enter password 2 times
+
+
+On Jenkins Server:
+a. Copy the public key of Jenkins to Tomcat server
+command: ssh-copy-id root@private-ip-of-tomcat-server & presss Enter
+
+b. once the key is copied, you need to test the connection:
+
+ssh root@private-ip-of-tomcat-server - Once you are able to login passwordlessly from Jenkins to Tomcat server, you are good but if not, the integration will not be completed - This test is very very important
+
+LOGIN TO JENKINS DASHBOARD:
+a.enter ur username and password to login 
+b.Click Manage Jenkins -> Manage Plugin -> Click Available -> In the search field, search for the below plugins and install without restart:
+
+Capitomcat
+Publish over ssh
+SSH
+GitHub integration
+Githu Authentication
+Ansible
+Ansbible Tower
+Pipeline Maven integration
+Pipeline Utility steps
+Build pipeline
+Simple Travis Pipeline Runner
+Deloy to container
+Github Authentication
+Pipeline utility steps
+
+c. Once all the Plugin is install, restart jenkins
+e.g https://jenkins-ip-addres/restart + press Enter
+
+LETS MAKE SURE JENKINS CAN COMMUNICATE WITH TOMCAT SERVER:
+a. login to jenkins dashboard server
+b. click manage jenkins -> Global Tool Configuration ->  Scroll down to PUBLISH OVER SSH
+
+GO back to Jenkins Server:
+su - jenkins
+cd .ssh
+ls
+cat id_rsa ---- This is your Jenkins Private Key
+pwd
+copy the path, it should be : /var/lib/jenkins/.ssh/id_rsa
+go back to Jenkins  to dashboard
+Passphrase - password
+path to key: /var/lib/jenkins/.ssh/id_rsa
+
+copy you Jenkins Private Key and paste in the Key section:
+It should look like this:
+
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEAvdtO4RoLv2R0P82PIC0C7UCbQPXvInwflVx5aD4AZnVil2fO
+1SXyq1kF5DGVa9ISvQUGiz7aSTSkieAS5wQsjkp5fE8QJOF4zQ4jh8daDXgjuF9R
+jn79iOP6Y6/AoFsvutyAfjLe4X6C+nbrXbrRgrFTi8w72vIoB0WQMWNPVNcF7su9
+gt80nbrRvJbdlBoHb80aFFO1gwH3PSGNCnX28ZOHnN2FopjxiUssF34xtBIQnwNO
+mnDdG7GKDMsdyM4OyeYqNk3STT86XNhgWSrLBopvESfwuUblbdx1ztxAq4vKN0Oi
+/69OMVyK90aWFxlA5aNvfPxdqA7Y7M/z+qdGOQIDAQABAoIBAH6RN3KlVHORWlY2
+iVXf6/WSfm2+Bl+s87k03tL5kna7hrB8ycwa8j38qQrJa11nvIo6UXR+wDLRX2dy
+8+cCR1nMmFSguJh9n3TEGjeoVIZqMxX0pYAjdI3Pvdq7DeVZJOajnR2EeEVHe7XR
+lXL02jsQUCwASV7a1IiUfV4PYJGjZ01usyN/cDHRrUTqrUDDtNVWxZJUWkjn0PMa
+HPpTOwm8XB/5+S/1+81Uhd9IBMUndOtABAIVo9m88MCKw81wcWoJxVg7b6MoQdHd
+yt7DPQqVIlZTi2ewoas/nTmDmZig4EfkCRsFV0Q+PG4ru0pLQhnDkcf02xyPjNmz
+gd57/aECgYEA9pLv6I7J21W0Y+dK43nzIYkynG0YVdfOM+U7K0R+8mK3/nr6FAqv
+/xMHP6BXlSNdzsdnIrhWKz5KFPS4atthertx4ujvgfzPsZu4i0ODMF6dVj7juct7
+S+ioP6wrlpQ0RLRqndMbqJWWjcNlMl22b3aMUXguC+0TgBqN+e4IrNUCgYEAxR1Q
+lY2KFTLfigyERhFJbKOP0j7pFG0FXmEg0uG/0Ew0LbAG2fxqlVLuTFPRoyf4gf/M
+7S+1hpEq+R9dc7Pe/DkjqunAwOT8Rdatf4h848h69f7wkQFLnvtnv6CI60VA/g8r
+GAAQzaqNyvkS6rnf/1S8gljosTs62vPjklM6FdUCgYEAoAg36yEZg+B5JsoMAd25
+Xg+0qG/p9nUNIQNrRqa7GcfWkTTxsCZLmeqYrsP7dBEzJiynFJK9Ym2YGUfHlZrz
+Bnw360SxhhU2G5jsyn4z3CXcSgihNooJaPgEkubEl4Ny9RB/jhVhAyarQzEJMgo+
+iNNROOMeR6FEIcWaVhcWzE0CgYEAkXasvXESccp1RP8vrjWbpdyeil16zGQYDipH
+eti2IRXbe8vngn7QeRoWWaWRk4Iv1l/b7z3CDGic+fO3l2cqK6BPPhX69V8G/NMM
+fo1O/Ro6A8f76Ea4c768NaJW6KjW6aZv+uoxfFVdBmkBGM/LCjaSVu8d6Yz4RhSt
+4JIiz3ECgYAJdMXYrGSSaNjXnP4masbMLH64uO9vQV5br9I0UWPe2D3rGmF96wqN
+94MMSFTBm/Z7IK2I5AaUsNpR2jKPc6fqO0KK4Kc/IKjqpdKwnLF7YoC/mQMSRF/I
+miV6zXt2pJSeDOeqEXWdnIGEJcum3CmkDEeYjN1DaPBrOoDgZIs9jg==
+-----END RSA PRIVATE KEY-----
+
+
+Click on SSH Servers:
+Name: Tomcat App server:
+Hostname: PUT TOMCAT PUBLIC IP ADDRESS
+User: root
+Directory: /root/tomcat/tomcat7/webapps - This actually depends on how you install tomcat, but you must add a path that points to WEBAPPS
+Click test connection 
+
+If the connection is successfully, The Integration is successful...meaning, Jenkins can now deploy any application to tomcat after build is completed.
+
+
+
+
+
+
+
+
+
+
+

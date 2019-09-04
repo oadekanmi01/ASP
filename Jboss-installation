@@ -1,0 +1,118 @@
+ 20190616-23:32:51 yum update -y
+    2  20190616-23:38:25 clear
+    3  20190616-23:38:32 lsblk
+    4  20190616-23:38:40 pvcreate /dev/nvme1n1
+    5  20190616-23:39:27 vgcreate vg01 /dev/nvme1n1
+    6  20190616-23:40:29 lvcreate -l 100%FREE -n appvol vg01
+    7  20190616-23:40:58 mkfs.xfs /dev/vg01/appvol
+    8  20190616-23:41:06 mkdir -p /app
+    9  20190616-23:41:27 echo "/dev/mapper/vg01-appvol /app xfs defaults,noatime 0 2" >> /etc/fstab
+   10  20190616-23:41:36 mount -a
+   11  20190616-23:41:39 df -h
+   12  20190616-23:41:44 reboot
+   13  20190616-23:32:44 sudo su -
+   14  20190616-23:48:13 exit
+   15  20190616-23:45:53 sudo su-
+   16  20190616-23:46:06 mkdir warfiles
+   17  20190616-23:46:15 mkdir software-version
+   18  20190616-23:46:16 ll
+   19  20190616-23:46:19 sudo su -
+   20  20190616-23:46:22 clear
+   21  20190616-23:46:37 useradd oadekanmi
+   22  20190616-23:47:26 passwd oadekanmi
+   23  20190616-23:47:52 usermod -aG wheel oadekanmi
+   24  20190616-23:47:58 su - oadekanmi
+   25  20190616-23:50:16 vi .bash_profile
+   26  20190616-23:56:00 clear
+   27  20190616-23:56:04 ip a
+   28  20190617-00:03:11 top
+   29  20190617-00:10:07 cd /home/ec2-user/
+   30  20190617-00:10:14 ll
+   31  20190617-00:10:42 mv software-version/* /home/oadekanmi/software-version/
+   32  20190617-00:10:48 top
+   33  20190617-00:21:43 clear
+   34  20190617-00:21:45 cd warfiles/
+   35  20190617-00:21:46 ll
+   36  20190617-00:21:58 mv ffsdcsApp-FFSDCS_PROD_REL_9.5.1.war /home/oadekanmi/
+   37  20190617-00:22:00 ll
+   38  20190617-00:22:06 cd /home/oadekanmi/
+   39  20190617-00:22:08 ls -ltr
+   40  20190617-00:24:31 chown oadekanmi. ffsdcsApp-FFSDCS_PROD_REL_9.5.1.war
+   41  20190617-00:24:32 ll
+   42  20190617-00:24:43 chown -R oadekanmi software-version/
+   43  20190617-00:24:47 cd software-version/
+   44  20190617-00:24:48 ll
+   45  20190617-00:25:04 cp activemq-rar-5.9.0.rar jboss-eap-6.4.0.zip /app/
+   46  20190617-00:25:05 ll
+   47  20190617-00:25:08 clear
+   48  20190617-00:25:14 cd /app/
+   49  20190617-00:25:15 ll
+   50  20190617-00:25:32 cd
+   51  20190617-00:26:20 yum install unzip -y;yum install wget -y;yum install java-1.8.0-openjdk -y
+   52  20190617-00:26:43 java -version
+   53  20190617-00:27:41 groupadd -g 500 jbossgrp
+   54  20190617-00:27:54 useradd -s  /bin/bash -g jbossgrp jboss
+   55  20190617-00:28:08 usermod -u 500  jboss
+   56  20190617-00:28:22 id jboss
+   57  20190617-00:28:25 cd /app/
+   58  20190617-00:28:27 clear
+   59  20190617-00:28:28 ll
+   60  20190617-00:28:37 unzip jboss-eap-6.4.0.zip
+   61  20190617-00:28:40 ll
+   62  20190617-00:28:47 rm -rf jboss-eap-6.4.0.zip
+   63  20190617-00:28:48 ll
+   64  20190617-00:28:50 clear
+   65  20190617-00:28:52 ll
+   66  20190617-00:29:03 mv activemq-rar-5.9.0.rar jboss-eap-6.4/standalone/deployments/
+   67  20190617-00:29:24 chown -Rf jboss:jbossgrp jboss-eap-6.4
+   68  20190617-00:29:24 ll
+   69  20190617-00:29:38 ln -s /app/jboss-eap-6.4 /usr/share/jboss-as
+   70  20190617-00:29:58 cd jboss-eap-6.4/
+   71  20190617-00:30:00 ll
+   72  20190617-00:30:06 cp bin/init.d/jboss-as-standalone.sh /etc/init.d/jboss
+   73  20190617-00:30:15 cd
+   74  20190617-00:30:18 chmod 755 /etc/init.d/jboss
+   75  20190617-00:30:31 mkdir /etc/jboss-as
+   76  20190617-00:30:44 cp /app/jboss-eap-6.4/bin/init.d/jboss-as.conf /etc/jboss-as/
+   77  20190617-00:31:00 vi /etc/jboss-as/jboss-as.conf
+   78  20190617-00:32:32 cd /etc/init.d/
+   79  20190617-00:32:33 ll
+   80  20190617-00:32:45 chkconfig --add jboss
+   81  20190617-00:32:58 chkconfig jboss on
+   82  20190617-00:33:10 chkconfig --level 3 jboss on
+   83  20190617-00:33:31 cd /app/jboss-eap-6.4/bin/
+   84  20190617-00:33:38 ./add-user.sh
+   85  20190617-00:34:19 cd ../standalone/configuration/
+   86  20190617-00:34:21 ll
+   87  20190617-00:34:37 mv standalone.xml standalone.xml-original
+   88  20190617-00:34:43 vi standalone.xml
+   89  20190617-00:35:16 cd
+   90  20190617-00:36:17 reboot
+   91  20190617-00:50:46 clear
+   92  20190617-00:50:54 cd /app/jboss-eap-6.4/standalone/deployments/
+   93  20190617-00:50:55 ll
+   94  20190617-00:50:59 cd
+   95  20190617-00:51:09 cd /usr/share/jboss-as/
+   96  20190617-00:51:10 ll
+   97  20190617-00:51:14 cd standalone/
+   98  20190617-00:51:15 ll
+   99  20190617-00:51:21 cd ..
+  100  20190617-00:51:23 ll
+  101  20190617-00:51:38 chown -R jboss. standalone/
+  102  20190617-00:51:40 cd standalone/
+  103  20190617-00:51:41 ll
+  104  20190617-00:51:43 cd
+  105  20190617-00:51:46 clear
+  106  20190617-00:51:58 systemctl status jboss
+  107  20190617-00:52:08 cd /home/oadekanmi/
+  108  20190617-00:52:10 clear
+  109  20190617-00:52:11 ll
+  110  20190617-00:53:21 ip a
+  111  20190617-00:55:33 clear
+  112  20190617-00:55:37 ls -ltr
+  113  20190617-00:55:41 ./deployment.sh
+  114  20190617-00:56:15 cd /app/jboss-eap-6.4/standalone/deployments/
+  115  20190617-00:56:16 ls -ltr
+  116  20190617-00:50:43 sudo su -
+  117  20190619-17:35:16 clear
+  118  20190619-17:35:19 history

@@ -1,0 +1,40 @@
+DEV
+host=ip-10-224-54-51  -APP
+host=ip-10-224-54-141  -DATA
+host=ip-10-224-54-19  -APP
+host=ip-10-224-54-134  -DATA
+
+source="/usr/share/jboss-as/standalone/log/ffsdcsApp.log"
+source="/usr/share/jboss-as/standalone/log/server.log"
+source="/usr/share/jboss-as/standalone/log/console.log"
+source="/usr/share/jboss-as/standalone/log/gc.log.0.current"
+source="/usr/share/jboss-as/standalone/log/ffsdcsData.log"
+source="/app/activemq-5.11.1/data/activemq.log"
+
+TEST
+host=ip-10-234-194-107  -APP
+host=ip-10-234-194-136  -DATA
+host=ip-10-234-194-116  -APP
+host=ip-10-234-194-167  -DATA
+
+
+IMPL
+host=ip-10-138-36-126  -APP
+host=ip-10-138-36-155  -DATA
+host=ip-10-138-36-113  -APP
+host=ip-10-138-36-180  -DATA
+
+
+
+PROD
+host=ip-10-245-122-62  -APP
+host=ip-10-245-122-179  -DATA
+host=ip-10-245-122-10  -APP
+host=ip-10-245-122-173  -DATA
+
+
+host=ip-10-224-54-51 OR host=ip-10-224-54-141 OR host=ip-10-224-54-19 OR host=ip-10-224-54-134 AND source="/usr/share/jboss-as/standalone/log/ffsdcsApp.log" OR source="/usr/share/jboss-as/standalone/log/server.log" OR source="/usr/share/jboss-as/standalone/log/console.log" OR source="/usr/share/jboss-as/standalone/log/gc.log.0.current" OR source="/usr/share/jboss-as/standalone/log/ffsdcsData.log" OR source="/app/activemq-5.11.1/data/activemq.log"
+
+
+
+Dev-env

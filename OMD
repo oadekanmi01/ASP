@@ -1,0 +1,27 @@
+Installing omd package:
+
+Go to omdistro.org, click on centos, and download version 6 and 64 bit.
+
+After installation: run the command …omd setup, then run…omd create prod “ or any environment you which monitor”
+
+·         Su – prod, then omd start..shut down the firewall and selinux
+
+·         Username: omdadmin
+
+·         Passwd: omd
+
+Now install the agent or pluggin:
+
+For omd, the agent is MK:
+
+Check_MK download in google
+
+Or better still just: yum install check-mk-agent
+
+Configuration path: vi /etc/xinetd.d/check-mk-agent
+
+Configure the following:
+
+port=6556
+
+Uncomment and IP address section at the bottom of the file and put the master IP address
