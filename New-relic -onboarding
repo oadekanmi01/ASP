@@ -10,10 +10,6 @@ custom_attributes:
 
 
 
-echo "license_key: 271bc1c4b9e74b394537144727a821cbe3252fe3" | sudo tee -a /etc/newrelic-infra.yml
-
-
-
 systemctl enable newrelic-infra.service
 systemctl start newrelic-infra.service
 systemctl status newrelic-infra.service
