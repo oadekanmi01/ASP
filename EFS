@@ -3,6 +3,10 @@ fs-c334c121.efs.us-east-1.amazonaws.com
 10.245.119.108
 
 
+10.245.119.112
+
+10.245.119.110
+
 10.245.119.108:/
 
 echo "/dev/mapper/vg01-appvol /app xfs defaults,noatime 0 2" >> /etc/fstab
